@@ -7,7 +7,7 @@ html, body {
 
 html {
   font-size: 10px;
-  background-color: #a9a9a9;
+  background-color: #4FD9EB;
 }
 
 body {
@@ -29,6 +29,7 @@ p, input, li {
 }
 
 h1 {
+  font-family: 'Comfortaa', cursive;
   font-size: 4rem;
   text-align: center;
   text-shadow: 2px 2px 10px black;
@@ -130,9 +131,12 @@ aside a {
 }
 
 aside img {
-  max-width: 100%;
+  width: 85px;
+  height: 80px;
 }
 
 footer {
   margin-top: 10px;
 }
+
+
