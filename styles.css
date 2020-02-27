@@ -41,14 +41,16 @@ html, body {
 }
 
 .caption {
+    display: flex;
     background-color: bisque;
     width: 300px;
     height: 70px;
-    border-radius: 10px;
+    border-radius: 50px;
+    justify-content: center;
 }
 
 .caption p {
-    padding-left: 3%;
+    padding-left: 5%;
     font-family: 'Comfortaa';
     font-size: 13px;
     align-self: center;
