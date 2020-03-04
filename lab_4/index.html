@@ -50,8 +50,9 @@
       nameP.textContent += "\n"+myName.substr(myName.length-3);
       myFirst = myName.substring(0, myName.indexOf(" "));
       myLast = myName.substr(myName.indexOf(" "));
+      nameLength = (myFirst+myLast).length;
 
-      
+      myHeading.append(" " + nameLength);
     </script>
   </body>
 </html>
