@@ -27,16 +27,43 @@
       </div>
     </div>
     <script>
-        /* Your lab code can go here, or in an external file you include */
-        var mymap = L.map('mapid').setView([38.9881362,-76.9415662], 16.4);
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          maxZoom: 18,
-          id: 'mapbox/streets-v11',
-          tileSize: 512,
-          zoomOffset: -1,
-          accessToken: 'pk.eyJ1IjoiY29udW1hanUiLCJhIjoiY2s4anRxZTJuMGQ4bjNscDhrZmd4NWs0dyJ9.0vCisvjyTfOnVOkT3hh-2A'
-        }).addTo(mymap);
+      /* Your lab code can go here, or in an external file you include */
+
+      var mymap = L.map('mapid').setView([38.989697,-76.937759], 13);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiY29udW1hanUiLCJhIjoiY2s4anRxZTJuMGQ4bjNscDhrZmd4NWs0dyJ9.0vCisvjyTfOnVOkT3hh-2A'
+      }).addTo(mymap);
+      
+      /*Add hornbake library marker*/
+      var marker = L.marker([38.9881362,-76.9415662]).addTo(mymap);
+      marker.bindPopup("Hornbake Library");
+
+      /* Get 3 restaurant coordinates from json url & display as markers*/
+      let count = 0;
+      fetch("https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json")
+        .then(function(resp) {
+          return resp.json();
+        })
+        .then(function(data) {
+          for (i=0; i<data.length; i++) {
+            if (data[i].city === "COLLEGE PARK") {
+              coords = data[i]["geocoded_column_1"].coordinates;
+              L.marker([coords[1],coords[0]]).addTo(mymap).bindPopup(data[i].name);
+              count = count + 1;
+            }
+            if (count === 3) {
+              break;
+            }
+          }
+        });
+
+      
+
     </script>
   </body>
 </html>
