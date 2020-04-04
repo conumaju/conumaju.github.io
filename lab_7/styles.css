@@ -108,6 +108,11 @@ h3 {
   border-radius: 10px;
 }
 
+.leaflet-popup-content {
+  color: rgb(56, 151, 211);
+  font-family: 'Franklin Gothic Medium';
+}
+
 /* Mobile screen */
 @media only screen and (max-width : 700px) {
   html, body {
