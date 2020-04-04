@@ -39,10 +39,12 @@
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiY29udW1hanUiLCJhIjoiY2s4anRxZTJuMGQ4bjNscDhrZmd4NWs0dyJ9.0vCisvjyTfOnVOkT3hh-2A'
       }).addTo(mymap);
+
+      let popupStyle = {'className' : 'style'}
       
       /*Add hornbake library marker*/
       var marker = L.marker([38.9881362,-76.9415662]).addTo(mymap);
-      marker.bindPopup("Hornbake Library");
+      marker.bindPopup("Hornbake Library", popupStyle);
 
       /* Get 3 restaurant coordinates from json url & display as markers*/
       let count = 0;
@@ -54,7 +56,7 @@
           for (i=0; i<data.length; i++) {
             if (data[i].city === "COLLEGE PARK") {
               coords = data[i]["geocoded_column_1"].coordinates;
-              L.marker([coords[1],coords[0]]).addTo(mymap).bindPopup(data[i].name);
+              L.marker([coords[1],coords[0]]).addTo(mymap).bindPopup(data[i].name, popupStyle);
               count = count + 1;
             }
             if (count === 3) {

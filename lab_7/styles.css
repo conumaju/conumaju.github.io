@@ -108,9 +108,21 @@ h3 {
   border-radius: 10px;
 }
 
+/* Style popups*/
 .leaflet-popup-content {
   color: rgb(56, 151, 211);
   font-family: 'Franklin Gothic Medium';
+}
+
+/* style popups using custom class*/
+.style .leaflet-popup-content-wrapper {
+  background-color: #FFE7B2;
+}
+.style .leaflet-popup-tip {
+  background: #FFE7B2;
+}
+.style .leaflet-popup-close-button {
+  color: black;
 }
 
 /* Mobile screen */
