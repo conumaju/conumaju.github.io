@@ -10,18 +10,77 @@
       <div class="wrapper">
         <div class="header">Frontend Libraries: Charts Lab</div>
         <div class="content">
-          When your lab is done, this should be replaced with a useful chart full of food data.
+          <div id='chart' style="height: 300px; width: 100%;">
+          </div>
         </div>
         <div class="footer">Let's eat out in the future!</div>
       </div>
     </div>
     <script>
-      fetch('./countries.json') // replace this with the food safety data set
+      fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json') // replace this with the food safety data set
         .then((data) => data.json()) // this is an "implicit return" - we're returning the results of the Fetch request to the next step.
         .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
-          console.log(data);
+          console.log(data.length);
           // return data; // <- this will pass the data to the next "then" statement when I'm ready.
+          return data;
         })
+        .then((data) => {
+          let counts = {};
+          data.forEach(i => {
+            counts[i.category] = (counts[i.category] || 0) + 1; /*Credit : https://stackoverflow.com/questions/43673734/how-to-count-number-of-occurrences-of-distinct-values-from-an-array-of-objects-i*/
+          })
+          return counts;
+        })
+        .then((data) => {
+          let formattedData = Object.entries(data).map(m => {
+            return {
+              y: m[1], label: m[0]
+            };
+          })
+          return formattedData;
+        })
+        .then((data) => {
+          console.log(data);
+          /* Beginning of CanvasJs API*/
+          window.onload = function () {
+
+          const chart = new CanvasJS.Chart("chart", {
+            animationEnabled: true,
+            exportEnabled: true,
+            title:{
+              text: "Restaurant Categories"
+            },
+            axisY: {
+              scaleBreaks: {
+                autoCalculate: true
+              }
+            },
+            data: [{
+              type: "funnel",
+              reversed: true,
+              indexLabel: "{label} - {y}",
+              indexLabelFontColor: "black",
+              dataPoints: data
+            }]
+          });
+          calculatePercentage();
+          chart.render();
+
+          function calculatePercentage() {
+            const dataPoint = chart.options.data[0].dataPoints;
+            const total = dataPoint[0].y;
+            for(var i = 0; i < dataPoint.length; i++) {
+              if(i == 0) {
+                chart.options.data[0].dataPoints[i].percentage = 100;
+              } else {
+                chart.options.data[0].dataPoints[i].percentage = ((dataPoint[i].y / total) * 100).toFixed(2);
+              }
+            }
+          }
+          }  
+          /* End of CanvasJS API*/
+        })
+
     </script>
   </body>
 </html>
