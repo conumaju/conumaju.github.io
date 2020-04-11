@@ -33,17 +33,3 @@ btn.onclick = function() {
         countries_ol.appendChild(newLi);
     }
 }
-
-
-function generate(num, list) {
-    list_copy = list.slice(list)
-    randList = []
-    let i = 1;
-    while (i<num+1) {
-        let randIn = Math.floor(Math.random() * list_copy.length);
-        let get = list_copy.splice(randIn, 1)
-        randList.push(get[0])
-        i = i + 1
-    }
-    return randList
-    }
