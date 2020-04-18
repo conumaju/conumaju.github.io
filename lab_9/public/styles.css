@@ -75,7 +75,7 @@ h3 {
   padding: 10px;
   overflow-wrap: break-word;
   margin: 25px 50px;
-  max-width: 450px;
+  max-width: 500px;
 }
 
 .button {
@@ -102,10 +102,4 @@ h3 {
 .button:active {
   position: relative;
   top: 1px;
-}
-
-.canvasjs-chart-container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
 }
