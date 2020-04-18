@@ -33,7 +33,7 @@ h3 {
 .wrapper {
   min-height: 100%;
   display: flex;
-  width: 80%;
+  width: 100%;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
@@ -71,6 +71,7 @@ h3 {
   border: 2px dotted #444;
   flex-grow: 2;
   flex: 0 0 200px;
+  width: 85%;
   padding: 10px;
   overflow-wrap: break-word;
   margin: 25px 50px;
@@ -101,4 +102,10 @@ h3 {
 .button:active {
   position: relative;
   top: 1px;
+}
+
+.canvasjs-chart-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }

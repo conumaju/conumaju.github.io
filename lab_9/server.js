@@ -22,15 +22,35 @@ app.use(express.static('public'));
 
 
 function processDataForFrontEnd(req, res) {
-  const baseURL = ''; // Enter the URL for the data you would like to retrieve here
+  const baseURL = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json'; // Enter the URL for the data you would like to retrieve here
 
   // Your Fetch API call starts here
   // Note that at no point do you "return" anything from this function -
   // it instead handles returning data to your front end at line 34.
     fetch(baseURL)
       .then((r) => r.json())
+      .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
+      console.log(data.length);
+      // return data; // <- this will pass the data to the next "then" statement when I'm ready.
+      return data;
+      })
       .then((data) => {
-        console.log(data);
+        let counts = {};
+        data.forEach(i => {
+          counts[i.category] = (counts[i.category] || 0) + 1; /*Credit : https://stackoverflow.com/questions/43673734/how-to-count-number-of-occurrences-of-distinct-values-from-an-array-of-objects-i*/
+        })
+        return counts;
+      })
+      .then((data) => {
+        let formattedData = Object.entries(data).map(m => {
+          return {
+            y: m[1], label: m[0]
+          };
+        })
+        return formattedData;
+      })
+      .then((data) => {
+        console.log(data);        
         res.send({ data: data }); // here's where we return data to the front end
       })
       .catch((err) => {
