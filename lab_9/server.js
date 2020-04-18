@@ -30,7 +30,6 @@ function processDataForFrontEnd(req, res) {
     fetch(baseURL)
       .then((r) => r.json())
       .then((data) => { // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
-      console.log(data.length);
       // return data; // <- this will pass the data to the next "then" statement when I'm ready.
       return data;
       })
