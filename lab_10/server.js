@@ -22,7 +22,7 @@ app.use(express.static('public'));
 
 
 function processDataForFrontEnd(req, res) {
-  const baseURL = ''; // Enter the URL for the data you would like to retrieve here
+  const baseURL = '"/api"'; // Enter the URL for the data you would like to retrieve here
 
   // Your Fetch API call starts here
   // Note that at no point do you "return" anything from this function -
@@ -47,6 +47,9 @@ app.route('/api')
   .post((req, res) => {
     console.log("/api post request", req.body);
     res.send('your request was successful'); // simple mode
+  })
+  .put((req, res) => {
+    console.log("/api put request", req.body);
   })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
