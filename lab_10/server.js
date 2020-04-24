@@ -50,6 +50,7 @@ app.route('/api')
   })
   .put((req, res) => {
     console.log("/api put request", req.body);
+    res.send('your put request was successful!');
   })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
