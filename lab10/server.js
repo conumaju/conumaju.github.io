@@ -9,6 +9,7 @@ import fetch from "node-fetch";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import writeUser from "./libraries/writeuser";
+import writeForm from "./libraries/writeuser";
 
 const dbSettings = {
   filename: "./tmp/database.db",
@@ -43,20 +44,25 @@ function processDataForFrontEnd(req, res) {
 // Syntax change - we don't want to repeat ourselves,
 // or we'll end up with spelling errors in our endpoints.
 //
+
 app
   .route("/api")
   .get((req, res) => {
     // processDataForFrontEnd(req, res)
     (async () => {
       const db = await open(dbSettings);
-      const result = await db.all("SELECT * FROM user");
+      const result = await db.all("SELECT * FROM form_data");
       console.log("Expected result", result);
-      res.json(result);
+      res.send({ result });
     })();
   })
   .put((req, res) => {
     console.log("/api put request", req.body);
-    res.send('your put request was successful!');
+    writeForm(req.body.name, req.body.zip, req.body.interests, dbSettings)
+    .then((table) => {
+      console.log(table)
+      res.json({table, successMsg: 'Your put request was successful!'});
+    })
   })
   .post((req, res) => {
     console.log("/api post request", req.body);

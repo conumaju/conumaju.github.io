@@ -19,9 +19,10 @@
             <label for="interests">Interests</label>
             <textarea id="interests" name="interests" rows="5" cols="33">
                 Default text says what?
-            </textarea
-            ><br />
+            </textarea>
+            <br />
             <button id="formBtn">Submit</button>
+            <button id="getBtn">Get Request</button>
           </form>
         </div>
       </div>
@@ -41,18 +42,32 @@
           },
           body: JSON.stringify(Object.fromEntries(formToSend)),
         })
-          .then((data) => data.text()) // note: we didn't send JSON, so there's no JSON to get.
-          .then((txtresponse) => {
-            console.log(txtresponse);
-            btn.setAttribute("disabled", true);
+          .then((data) => data.json())
+          .then((data) => {
+            console.log(data);
             const br = document.createElement("br");
             target.append(br);
-            target.append(`${txtresponse}`);
-          });
+            target.append(`${data.successMsg}`);
+          })
+      }
+
+      function sendGet() {
+        fetch("/api")
+          .then((result) => result.json())
+          .then((result) => {
+            console.log(result.length);
+            return result;
+          })
+          .then((results) => {
+            console.log(results);
+          })
       }
 
       const formBtn = document.querySelector("#formBtn");
       formBtn.addEventListener("click", sendForm);
+
+      const getBtn = document.querySelector('#getBtn');
+      getBtn.addEventListener("click", sendGet);
     </script>
   </body>
 </html>
