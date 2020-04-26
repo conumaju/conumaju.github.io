@@ -33,7 +33,7 @@ function processDataForFrontEnd(req, res) {
     .then((r) => r.json())
     .then((data) => {
       console.log(data);
-      res.send({ data: data }); // here's where we return data to the front end
+      res.json({ data}); // here's where we return data to the front end
     })
     .catch((err) => {
       console.log(err);
@@ -48,12 +48,11 @@ function processDataForFrontEnd(req, res) {
 app
   .route("/api")
   .get((req, res) => {
-    // processDataForFrontEnd(req, res)
     (async () => {
       const db = await open(dbSettings);
       const result = await db.all("SELECT * FROM form_data");
       console.log("Expected result", result);
-      res.send({ result });
+      res.json(result);
     })();
   })
   .put((req, res) => {

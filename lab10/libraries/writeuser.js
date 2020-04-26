@@ -13,7 +13,7 @@ async function writeUser(username, dbSettings) {
     return result;
   }
   
-
+//export default writeUser;
 
 async function writeForm(user_name, zip, interests, dbSettings) {
     console.log('writing form data to database');

@@ -24,6 +24,8 @@
             <button id="formBtn">Submit</button>
             <button id="getBtn">Get Request</button>
           </form>
+          <div class="database">
+          </div>
         </div>
       </div>
     </div>
@@ -51,16 +53,27 @@
           })
       }
 
-      function sendGet() {
+      function sendGet(x) {
+        x.preventDefault();
         fetch("/api")
-          .then((result) => result.json())
-          .then((result) => {
-            console.log(result.length);
-            return result;
+          .then((resp) => resp.json())
+          .then((data) => {
+            console.log("no data here")
+            return data;
           })
-          .then((results) => {
-            console.log(results);
-          })
+          .then((data) => {
+            console.log(data);
+            let cont = document.querySelector('.database');
+            cont.innerHTML = " "
+            let newOL = document.createElement('ol');
+            cont.append(newOL);
+            newOL.className = "database";
+            for (let i=0; i<data.length; i++) {
+              let newLi = document.createElement('li')
+              newLi.appendChild(document.createTextNode("Name: "+data[i].name+", Zip Code: "+data[i].zip_code+", Interests: "+data[i].interests));
+              cont.appendChild(newLi);
+            }
+          });
       }
 
       const formBtn = document.querySelector("#formBtn");
